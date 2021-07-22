@@ -1,0 +1,117 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 12px;
+  width: 100%;
+  p{
+    border: 1px solid white;
+    padding: 8px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.4rem;
+  }
+}
+
+@mixin burguer-line {
+  border-radius: 5px;
+  height: 2.5px;
+  width: 28px;
+  background-color: white;
+}
+
+.menu-btn {
+  z-index: 3;
+  position: relative;
+  display: flex;
+  width: 28px;
+  height: 19px;
+  align-items: center;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+.menu-btn .menu-btn__burguer {
+  transition: all .5s ease-in-out;
+  @include burguer-line();
+  &::before {
+    position: absolute;
+    transform: translateY(-6px);
+    content: '';
+    transition: all .5s ease-in-out;
+    @include burguer-line();
+  }
+  &::after {
+    position: absolute;
+    transform: translateY(6px);
+    content: '';
+    transition: all .5s ease-in-out;
+    @include burguer-line();
+  }
+}
+.menu-btn.open .menu-btn__burguer {
+  transform: translateX(-50px);
+  background-color: transparent;
+}
+
+.menu-btn.open .menu-btn__burguer::before {
+  transform: rotate(45deg) translate(35px, -35px);
+}
+.menu-btn.open .menu-btn__burguer::after {
+  transform: rotate(-45deg) translate(35px, 35px);
+}
+
+ul.open {
+  transform: translateY(0);
+}
+
+ul {
+  transition: transform .5s ease-in-out;
+  transform: translateY(-100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #181719;
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  list-style: none;
+  gap: 10px;
+  left: 0;
+  right: 0;
+  top: 0;
+  a {
+    display: inline-block;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+  }
+  li:nth-child(1){
+    font-weight: bold;
+    border-bottom: 2px solid white;
+  }
+}
+
+@media (min-width:768px) {
+  ul {
+    gap: 40px;
+    position: initial;
+    flex-direction: row;
+    height: initial;
+    width: initial;
+    transform: translateY(0);
+  }
+  .menu-btn {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  ul {
+    gap: 86px;
+  }
+  header {
+    padding: 40px 20px;
+  }
+}
